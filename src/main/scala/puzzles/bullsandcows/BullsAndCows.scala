@@ -24,8 +24,8 @@ object BullsAndCows extends App {
       val positionsLeft = Set(0, 1, 2, 3).diff(bullPositions)
       val restGuessValues = positionsLeft.map(guess)
       val restSolutionValues = positionsLeft.map(choice)
-      val nrOfCows = restGuessValues.intersect(restSolutionValues)
-      (bullPositions.size, nrOfCows.size)
+      val cowValues = restGuessValues.intersect(restSolutionValues)
+      (bullPositions.size, cowValues.size)
     }
 
     def solve(): Solution = {
@@ -41,7 +41,6 @@ object BullsAndCows extends App {
       }
       loop(Game.all, Seq())
     }
-
   }
 
   val solutions = Game.all.map(_.solve())
