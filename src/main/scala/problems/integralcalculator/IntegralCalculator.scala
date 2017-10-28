@@ -1,7 +1,7 @@
 package problems.integralcalculator
 
-import problems.integralcalculator.Expressions._
-import problems.integralcalculator.Expressions.Implicits._
+import Expressions._
+import Expressions.Implicits._
 import Operators._
 
 import scala.language.implicitConversions

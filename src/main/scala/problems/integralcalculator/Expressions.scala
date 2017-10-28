@@ -1,6 +1,6 @@
 package problems.integralcalculator
 
-import problems.integralcalculator.Operators._
+import Operators._
 
 import scala.language.implicitConversions
 
@@ -13,7 +13,7 @@ object Expressions {
   object Implicits {
     implicit def numberIsExpression[A: Numeric](n: A): Expression = Number(implicitly[Numeric[A]].toDouble(n))
     implicit def expressionIsElement[A](expr: A)(implicit ev: A => Expression): Element = Left(expr)
-    implicit def operatorIsTerm(op: Operator): Element = Right(op)
+    implicit def operatorIsElement(op: Operator): Element = Right(op)
   }
 
 

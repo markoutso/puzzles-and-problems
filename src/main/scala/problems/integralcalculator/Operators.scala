@@ -1,6 +1,5 @@
 package problems.integralcalculator
 
-
 object Operators {
 
   trait Operator
@@ -53,6 +52,5 @@ object Operators {
     override def toString: String = "-"
     override def apply(v1: Double): Double = -v1
   }
-
 
 }
