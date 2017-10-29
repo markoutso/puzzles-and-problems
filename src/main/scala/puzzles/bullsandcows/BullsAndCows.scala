@@ -19,13 +19,29 @@ object BullsAndCows extends App {
 
   class Game(val choice: Entry) {
 
+    private def remove(x: Int, xs: List[Int]): List[Int] = {
+      xs match {
+        case Nil => Nil
+        case `x` :: rest => rest
+        case first :: rest => first :: remove(x, rest)
+      }
+    }
+
+    private def pairs(xs: List[Int], ys: List[Int]): Int = {
+      xs match {
+        case x :: rest if ys.contains(x) => 1 + pairs(rest, remove(x, ys))
+        case _ :: rest => pairs(rest, ys)
+        case _ => 0
+      }
+    }
+
     def check(guess: Entry): Result = {
-      val bullPositions = (for (i <- 0 until 4 if guess(i) == choice(i)) yield i).toSet
-      val positionsLeft = Set(0, 1, 2, 3).diff(bullPositions)
+      val bullPositions = for (i <- 0 until 4 if guess(i) == choice(i)) yield i
+      val positionsLeft = List(0, 1, 2, 3).diff(bullPositions)
       val restGuessValues = positionsLeft.map(guess)
       val restSolutionValues = positionsLeft.map(choice)
-      val cowValues = restGuessValues.intersect(restSolutionValues)
-      (bullPositions.size, cowValues.size)
+      val nrOfCows = pairs(restGuessValues, restSolutionValues)
+      (bullPositions.size, nrOfCows)
     }
 
     def solve(): Solution = {
@@ -52,5 +68,4 @@ object BullsAndCows extends App {
 
   val max = solutions.maxBy(_.length)
   println(s"Max number of rounds for all games: ${max.length}")
-
 }
